@@ -217,9 +217,9 @@ def main() -> None:
     for path in sorted(INPUT_DIR.glob("*.in")):
         case = json.loads(path.read_text(encoding="utf-8"))
         forecast = forecast_case(case, path.name)
-        (OUTPUT_DIR / f"{path.stem}.out").write_text(
-            json.dumps(forecast, separators=(",", ":")) + "\n", encoding="utf-8"
-        )
+        out = OUTPUT_DIR / f"{path.stem}.out"
+        out.write_text(json.dumps(forecast, separators=(",", ":")) + "\n", encoding="utf-8")
+        print(f"[trf] {path.name}: {len(forecast['trophies'])} trophies -> {out}", file=sys.stderr)
 
 
 if __name__ == "__main__":
